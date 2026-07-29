@@ -9,6 +9,8 @@ use App\Models\Food;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class SystemAdminController extends Controller
 {
@@ -67,6 +69,57 @@ class SystemAdminController extends Controller
     {
         $restaurants = Restaurant::with('user')->latest()->paginate(20);
         return view('admin.restaurants', compact('restaurants'));
+    }
+
+    public function createRestaurant()
+    {
+        return view('admin.restaurant-create');
+    }
+
+    public function storeRestaurant(Request $request)
+    {
+        $request->validate([
+            'owner_name'              => 'required|string|max:255',
+            'owner_email'             => 'required|email|unique:users,email',
+            'owner_password'          => 'required|string|min:8',
+            'restaurant_name'         => 'required|string|max:255',
+            'restaurant_description'  => 'nullable|string',
+            'restaurant_address'      => 'required|string|max:500',
+            'restaurant_phone'        => 'required|string|max:30',
+            'restaurant_email'        => 'required|email',
+            'delivery_fee'            => 'nullable|numeric|min:0',
+            'min_order_amount'        => 'nullable|numeric|min:0',
+            'estimated_delivery_time' => 'nullable|integer|min:1',
+        ]);
+
+        // 1. Create the restaurant owner user account
+        $user = User::create([
+            'name'      => $request->owner_name,
+            'email'     => $request->owner_email,
+            'password'  => Hash::make($request->owner_password),
+            'role'      => 'restaurant_admin',
+            'is_active' => true,
+        ]);
+
+        // 2. Create the restaurant and link it to the user
+        Restaurant::create([
+            'user_id'                 => $user->id,
+            'name'                    => $request->restaurant_name,
+            'slug'                    => Str::slug($request->restaurant_name) . '-' . Str::random(4),
+            'description'             => $request->restaurant_description,
+            'address'                 => $request->restaurant_address,
+            'phone'                   => $request->restaurant_phone,
+            'email'                   => $request->restaurant_email,
+            'delivery_fee'            => $request->delivery_fee ?? 0,
+            'min_order_amount'        => $request->min_order_amount ?? 0,
+            'estimated_delivery_time' => $request->estimated_delivery_time ?? 30,
+            'status'                  => 'active',
+            'rating'                  => 0,
+            'total_reviews'           => 0,
+        ]);
+
+        return redirect()->route('admin.restaurants')
+            ->with('success', "Restaurant '{$request->restaurant_name}' created! Owner login: {$request->owner_email}");
     }
 
     public function toggleRestaurantStatus($id)

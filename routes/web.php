@@ -66,6 +66,8 @@ Route::middleware(['auth', 'system.admin'])->prefix('admin')->name('admin.')->gr
     Route::get('/users', [SystemAdminController::class, 'users'])->name('users');
     Route::post('/users/{id}/toggle-status', [SystemAdminController::class, 'toggleUserStatus'])->name('users.toggle-status');
     Route::get('/restaurants', [SystemAdminController::class, 'restaurants'])->name('restaurants');
+    Route::get('/restaurants/create', [SystemAdminController::class, 'createRestaurant'])->name('restaurants.create');
+    Route::post('/restaurants', [SystemAdminController::class, 'storeRestaurant'])->name('restaurants.store');
     Route::post('/restaurants/{id}/toggle-status', [SystemAdminController::class, 'toggleRestaurantStatus'])->name('restaurants.toggle-status');
     Route::get('/orders', [SystemAdminController::class, 'orders'])->name('orders');
     Route::get('/orders/{orderNumber}', [SystemAdminController::class, 'showOrder'])->name('orders.show');
