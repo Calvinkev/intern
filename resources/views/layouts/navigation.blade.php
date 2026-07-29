@@ -2,19 +2,31 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-[#fdf5f1]" />
+                    <a href="{{ route('home') }}" class="flex items-center gap-2 text-decoration-none">
+                        <i class="bi bi-rocket-takeoff" style="color: #ff6b2b; font-size: 1.4rem;"></i>
+                        <span class="font-bold text-lg hidden sm:block" style="background: linear-gradient(135deg, #ff6b2b 0%, #e63946 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CODEBASE FOODS</span>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="hidden space-x-2 sm:flex sm:ms-8 items-center">
+                    <a href="{{ route('home') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('home') ? 'text-[#ff6b2b]' : 'text-[#d4c5bf] hover:text-[#fdf5f1]' }}">
+                        <i class="bi bi-house me-1"></i> Home
+                    </a>
+                    <a href="{{ route('restaurants.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('restaurants.*') ? 'text-[#ff6b2b]' : 'text-[#d4c5bf] hover:text-[#fdf5f1]' }}">
+                        <i class="bi bi-shop me-1"></i> Restaurants
+                    </a>
+                    @auth
+                        <a href="{{ route('orders.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('orders.*') ? 'text-[#ff6b2b]' : 'text-[#d4c5bf] hover:text-[#fdf5f1]' }}">
+                            <i class="bi bi-receipt me-1"></i> My Orders
+                        </a>
+                        <a href="{{ route('cart.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('cart.*') ? 'text-[#ff6b2b]' : 'text-[#d4c5bf] hover:text-[#fdf5f1]' }}">
+                            <i class="bi bi-cart me-1"></i> Cart
+                        </a>
+                    @endauth
                 </div>
             </div>
 
