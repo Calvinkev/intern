@@ -1,147 +1,142 @@
 @extends('layouts.app')
-
-@section('title', 'Home - CODEBASE FOODS')
+@section('title', 'CODEBASE FOODS — Taste the Extraordinary')
 
 @section('content')
-<!-- Stitch-like Aesthetics: vibrant gradients, glassmorphism, floating animations, modern typography -->
-<div class="modern-home">
-    <!-- Hero Section -->
-    <div class="hero-section position-relative overflow-hidden">
-        <div class="hero-bg position-absolute w-100 h-100 top-0 start-0"></div>
-        <div class="container position-relative z-index-1 py-5 mb-5">
-            <div class="row align-items-center min-vh-75">
-                <div class="col-lg-6 hero-text-container" data-aos="fade-up">
-                    <span class="badge bg-white text-primary rounded-pill px-3 py-2 mb-3 shadow-sm fw-bold">🚀 The Future of Food Delivery</span>
-                    <h1 class="display-3 fw-bolder text-white mb-4">Taste the <br><span class="text-gradient">Extraordinary</span></h1>
-                    <p class="lead text-white-50 mb-5 fw-light">Curated culinary experiences from your favorite local chefs, delivered with hyper-speed precision.</p>
-                    <div class="d-flex gap-3">
-                        <a href="{{ route('restaurants.index') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg hover-lift text-primary">Explore Menus</a>
-                        <a href="#categories" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold hover-lift">Categories</a>
+<div class="home-wrapper">
+
+{{-- ══════════════ HERO ══════════════ --}}
+<section class="hero-section position-relative overflow-hidden">
+    <div class="hero-orbs"></div>
+    <div class="container position-relative" style="z-index:2; padding: 6rem 1rem 5rem;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-up">
+                <span class="hero-pill mb-4 d-inline-flex align-items-center gap-2">
+                    <span class="pulse-dot"></span> Live & Accepting Orders
+                </span>
+                <h1 class="display-2 fw-bolder lh-1 mb-4" style="color:#fdf5f1;">
+                    Food that<br>
+                    <span class="text-flame">Fires Up</span><br>
+                    Your Cravings
+                </h1>
+                <p class="lead mb-5 fw-light" style="color:#c0aca3; max-width:500px;">
+                    Curated culinary experiences from your favourite local chefs, delivered blazing fast to your door.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ route('restaurants.index') }}" class="btn btn-hero-primary btn-lg rounded-pill px-5 py-3 fw-bold">
+                        <i class="bi bi-shop me-2"></i> Explore Restaurants
+                    </a>
+                    <a href="#popular" class="btn btn-hero-outline btn-lg rounded-pill px-5 py-3 fw-bold">
+                        Popular Now
+                    </a>
+                </div>
+
+                {{-- Trust badges --}}
+                <div class="d-flex gap-4 mt-5 flex-wrap">
+                    <div class="trust-badge">
+                        <i class="bi bi-lightning-charge-fill" style="color:#ffd166;"></i>
+                        <span>30-min delivery</span>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="bi bi-shield-check" style="color:#4ade80;"></i>
+                        <span>Safe & hygienic</span>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="bi bi-star-fill" style="color:#ff6b2b;"></i>
+                        <span>Top-rated chefs</span>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center position-relative hero-graphics d-none d-lg-block" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="glass-card p-5 mx-auto floating-animation">
-                        <i class="bi bi-rocket-takeoff text-white" style="font-size: 8rem; filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));"></i>
-                    </div>
-                    <div class="floating-badge badge-1 glass-badge"><i class="bi bi-star-fill text-warning"></i> Top Rated</div>
-                    <div class="floating-badge badge-2 glass-badge"><i class="bi bi-clock-history text-info"></i> Fast Delivery</div>
+            </div>
+
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+                <div class="hero-visual-ring floating-animation">
+                    <i class="bi bi-egg-fried" style="font-size:7rem; color:#ff6b2b; filter:drop-shadow(0 0 30px rgba(255,107,43,0.5));"></i>
+                </div>
+                <div class="floating-pill pill-1">
+                    <i class="bi bi-star-fill text-warning me-1"></i> 4.9 Rating
+                </div>
+                <div class="floating-pill pill-2">
+                    <i class="bi bi-clock me-1" style="color:#60a5fa;"></i> 25 min avg
+                </div>
+                <div class="floating-pill pill-3">
+                    <i class="bi bi-people-fill me-1" style="color:#4ade80;"></i> 2k+ Customers
                 </div>
             </div>
         </div>
-        <div class="wave-divider position-absolute bottom-0 w-100">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"><path fill="#f8f9fa" fill-opacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path></svg>
-        </div>
     </div>
+    {{-- Wave --}}
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="#16110f" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+        </svg>
+    </div>
+</section>
 
-    <!-- Categories Section -->
-    <div id="categories" class="container mb-5 py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h6 class="text-primary fw-bold text-uppercase tracking-wider">Discover</h6>
-            <h2 class="display-5 fw-bold text-dark">Cravings by Category</h2>
+{{-- ══════════════ CATEGORIES ══════════════ --}}
+<section id="categories" class="py-5 mt-2">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-label">Browse</span>
+            <h2 class="display-5 fw-bolder">Cravings by Category</h2>
         </div>
-        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-8 g-4 justify-content-center">
-            @foreach($categories as $category)
-            <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
-                <a href="{{ route('foods.index', ['category' => $category->slug]) }}" class="text-decoration-none">
-                    <div class="category-card text-center border-0 p-3 rounded-4 bg-white hover-lift shadow-sm h-100">
-                        <div class="category-icon-wrapper mx-auto mb-3">
-                            @if($category->image)
-                                <img src="{{ asset('storage/' . $category->image) }}" class="rounded-circle w-100 h-100 object-fit-cover shadow-sm" alt="{{ $category->name }}">
+        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3 justify-content-center">
+            @foreach($categories as $cat)
+            <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 40 }}">
+                <a href="{{ route('foods.index', ['category' => $cat->slug]) }}" class="text-decoration-none">
+                    <div class="cat-card text-center p-3 h-100">
+                        <div class="cat-img-wrap mx-auto mb-3">
+                            @if($cat->image)
+                                <img src="{{ asset('storage/' . $cat->image) }}" class="rounded-circle w-100 h-100 object-fit-cover" alt="{{ $cat->name }}">
                             @else
-                                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop" class="rounded-circle w-100 h-100 object-fit-cover shadow-sm" alt="{{ $category->name }}">
+                                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop" class="rounded-circle w-100 h-100 object-fit-cover" alt="{{ $cat->name }}">
                             @endif
                         </div>
-                        <h6 class="card-title text-dark fw-bold mb-0">{{ $category->name }}</h6>
+                        <span class="fw-bold small" style="color:#fdf5f1;">{{ $cat->name }}</span>
                     </div>
                 </a>
             </div>
             @endforeach
         </div>
     </div>
+</section>
 
-    <!-- Featured Restaurants Section -->
-    <div class="bg-white py-5 mb-5 rounded-5 shadow-sm">
-        <div class="container py-4">
-            <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
-                <div>
-                    <h6 class="text-primary fw-bold text-uppercase tracking-wider">Premium Selection</h6>
-                    <h2 class="display-5 fw-bold text-dark mb-0">Featured Restaurants</h2>
-                </div>
-                <a href="{{ route('restaurants.index') }}" class="btn btn-outline-dark rounded-pill px-4 py-2 hover-lift d-none d-md-inline-block">View All <i class="bi bi-arrow-right ms-2"></i></a>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                @foreach($featuredRestaurants as $restaurant)
-                <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <a href="{{ route('restaurants.show', $restaurant->slug) }}" class="text-decoration-none">
-                        <div class="restaurant-card card h-100 border-0 rounded-4 overflow-hidden bg-light hover-lift shadow-sm">
-                            <div class="position-relative">
-                                @if($restaurant->cover_image)
-                                    <img src="{{ asset('storage/' . $restaurant->cover_image) }}" class="card-img-top object-fit-cover" style="height: 220px;" alt="{{ $restaurant->name }}">
-                                @else
-                                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop" class="card-img-top object-fit-cover" style="height: 220px;" alt="{{ $restaurant->name }}">
-                                @endif
-                                <div class="position-absolute top-0 end-0 p-3">
-                                    <span class="glass-badge badge rounded-pill fw-bold"><i class="bi bi-star-fill text-warning me-1"></i> {{ number_format($restaurant->rating, 1) }}</span>
-                                </div>
-                            </div>
-                            <div class="card-body p-4 d-flex flex-column">
-                                <h4 class="card-title text-dark fw-bold mb-2">{{ $restaurant->name }}</h4>
-                                <p class="card-text text-secondary small mb-3">{{ Str::limit($restaurant->description, 80) }}</p>
-                                <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-auto">
-                                    <span class="text-muted small fw-medium">
-                                        <i class="bi bi-clock me-1 text-primary"></i> {{ $restaurant->estimated_delivery_time }} min
-                                    </span>
-                                    <span class="text-primary small fw-bold"><i class="bi bi-bicycle me-1"></i>Fast Delivery</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-            <div class="text-center mt-4 d-md-none">
-                 <a href="{{ route('restaurants.index') }}" class="btn btn-outline-dark rounded-pill px-4 py-2 hover-lift w-100">View All</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popular Foods Section -->
-    <div class="container py-5 mb-5">
+{{-- ══════════════ FEATURED RESTAURANTS ══════════════ --}}
+<section class="py-5 my-3" style="background: linear-gradient(180deg, #16110f 0%, #1a0f0c 100%);">
+    <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
             <div>
-                <h6 class="text-danger fw-bold text-uppercase tracking-wider">Trending Now</h6>
-                <h2 class="display-5 fw-bold text-dark mb-0">Popular Items</h2>
+                <span class="section-label">Premium Selection</span>
+                <h2 class="display-5 fw-bolder mb-0">Featured Restaurants</h2>
             </div>
-            <a href="{{ route('foods.index') }}" class="btn btn-outline-dark rounded-pill px-4 py-2 hover-lift d-none d-md-inline-block">Explore Menu <i class="bi bi-arrow-right ms-2"></i></a>
+            <a href="{{ route('restaurants.index') }}" class="btn btn-ghost d-none d-md-inline-flex align-items-center gap-2">
+                View All <i class="bi bi-arrow-right"></i>
+            </a>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            @foreach($popularFoods as $food)
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach($featuredRestaurants as $r)
             <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                <a href="{{ route('foods.show', $food->slug) }}" class="text-decoration-none">
-                    <div class="food-card card h-100 border-0 rounded-4 overflow-hidden bg-white shadow-sm hover-lift">
-                        <div class="position-relative overflow-hidden p-2 pb-0">
-                            @if($food->image)
-                                <img src="{{ asset('storage/' . $food->image) }}" class="card-img-top rounded-4 object-fit-cover food-img transition" style="height: 200px;" alt="{{ $food->name }}">
+                <a href="{{ route('restaurants.show', $r->slug) }}" class="text-decoration-none">
+                    <div class="rest-card h-100 hover-lift">
+                        <div class="rest-img-wrap position-relative overflow-hidden">
+                            @if($r->cover_image)
+                                <img src="{{ asset('storage/' . $r->cover_image) }}" class="rest-img" alt="{{ $r->name }}">
                             @else
-                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop" class="card-img-top rounded-4 object-fit-cover food-img transition" style="height: 200px;" alt="{{ $food->name }}">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=400&fit=crop" class="rest-img" alt="{{ $r->name }}">
                             @endif
-                            <div class="add-to-cart-btn btn btn-primary rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4 d-flex align-items-center justify-content-center" style="width:45px; height:45px;">
-                                <i class="bi bi-plus-lg text-white"></i>
-                            </div>
+                            <div class="rest-overlay"></div>
+                            <span class="rest-rating">
+                                <i class="bi bi-star-fill text-warning me-1"></i>{{ number_format($r->rating, 1) }}
+                            </span>
                         </div>
-                        <div class="card-body p-4 d-flex flex-column">
-                            <h5 class="card-title text-dark fw-bold mb-1">{{ $food->name }}</h5>
-                            <p class="card-text text-muted small mb-3"><i class="bi bi-shop text-primary me-1"></i>{{ $food->restaurant->name }}</p>
-                            <div class="d-flex justify-content-between align-items-end mt-auto">
-                                <div>
-                                    @if($food->hasDiscount())
-                                        <span class="text-decoration-line-through text-muted small me-1">${{ number_format($food->price, 2) }}</span>
-                                        <span class="text-danger fw-bolder fs-5">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
-                                    @else
-                                        <span class="text-dark fw-bolder fs-5">${{ number_format($food->price, 2) }}</span>
-                                    @endif
-                                </div>
-                                <span class="badge bg-light text-dark rounded-pill px-2 py-1 border shadow-sm"><i class="bi bi-star-fill text-warning me-1"></i>{{ number_format($food->rating, 1) }}</span>
+                        <div class="rest-body p-4">
+                            <h4 class="fw-bold mb-1">{{ $r->name }}</h4>
+                            <p class="small mb-3" style="color:#c0aca3;">{{ Str::limit($r->description, 75) }}</p>
+                            <div class="d-flex justify-content-between" style="border-top:1px solid #3b2f2b; padding-top:0.75rem;">
+                                <span class="small" style="color:#c0aca3;">
+                                    <i class="bi bi-clock text-warning me-1"></i>{{ $r->estimated_delivery_time }} min
+                                </span>
+                                <span class="small fw-bold" style="color:#ff6b2b;">
+                                    <i class="bi bi-bicycle me-1"></i>Fast Delivery
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -150,173 +145,288 @@
             @endforeach
         </div>
         <div class="text-center mt-4 d-md-none">
-             <a href="{{ route('foods.index') }}" class="btn btn-outline-dark rounded-pill px-4 py-2 hover-lift w-100">Explore Menu</a>
+            <a href="{{ route('restaurants.index') }}" class="btn btn-ghost w-100">View All Restaurants</a>
         </div>
     </div>
+</section>
 
-    <!-- CTA Section -->
-    <div class="cta-section py-5 my-5 position-relative overflow-hidden rounded-5 mx-3 mx-lg-5 shadow-lg" data-aos="zoom-in">
-        <div class="container position-relative z-index-1 py-5">
-            <div class="glass-card p-5 text-center mx-auto rounded-5 border border-white border-opacity-25" style="max-width: 800px;">
-                <h2 class="display-4 fw-bolder text-white mb-3">Craving Something Special?</h2>
-                <p class="lead text-white-50 mb-4 fw-light">Join our community and get access to exclusive deals, lightning fast delivery, and the best food in town.</p>
-                @if(auth()->check())
-                    <a href="{{ route('restaurants.index') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold shadow hover-lift text-primary">Order Now</a>
-                @else
-                    <div class="d-flex justify-content-center gap-3 flex-column flex-sm-row">
-                        <a href="{{ route('register') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold shadow hover-lift text-primary">Sign Up Free</a>
-                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold hover-lift">Login</a>
-                    </div>
-                @endif
+{{-- ══════════════ POPULAR FOODS ══════════════ --}}
+<section id="popular" class="py-5 my-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
+            <div>
+                <span class="section-label" style="color:#e63946;">🔥 Trending</span>
+                <h2 class="display-5 fw-bolder mb-0">Popular Items</h2>
             </div>
+            <a href="{{ route('foods.index') }}" class="btn btn-ghost d-none d-md-inline-flex align-items-center gap-2">
+                Explore Menu <i class="bi bi-arrow-right"></i>
+            </a>
         </div>
-        <div class="cta-bg position-absolute top-0 start-0 w-100 h-100"></div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            @foreach($popularFoods as $food)
+            <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
+                <a href="{{ route('foods.show', $food->slug) }}" class="text-decoration-none">
+                    <div class="food-card h-100 hover-lift">
+                        <div class="food-img-wrap position-relative overflow-hidden">
+                            @if($food->image)
+                                <img src="{{ asset('storage/' . $food->image) }}" class="food-img" alt="{{ $food->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" class="food-img" alt="{{ $food->name }}">
+                            @endif
+                            <div class="food-add-btn">
+                                <i class="bi bi-plus-lg"></i>
+                            </div>
+                        </div>
+                        <div class="food-body p-4">
+                            <h5 class="fw-bold mb-1">{{ $food->name }}</h5>
+                            <p class="small mb-3" style="color:#c0aca3;">
+                                <i class="bi bi-shop me-1" style="color:#ff6b2b;"></i>{{ $food->restaurant->name }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    @if($food->hasDiscount())
+                                        <span class="text-decoration-line-through small me-1" style="color:#c0aca3;">${{ number_format($food->price, 2) }}</span>
+                                        <span class="fw-bolder fs-5" style="color:#e63946;">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                    @else
+                                        <span class="fw-bolder fs-5" style="color:#fdf5f1;">${{ number_format($food->price, 2) }}</span>
+                                    @endif
+                                </div>
+                                <span class="rating-pill">
+                                    <i class="bi bi-star-fill text-warning me-1"></i>{{ number_format($food->rating, 1) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+        <div class="text-center mt-4 d-md-none">
+            <a href="{{ route('foods.index') }}" class="btn btn-ghost w-100">Explore Full Menu</a>
+        </div>
     </div>
+</section>
+
+{{-- ══════════════ HOW IT WORKS ══════════════ --}}
+<section class="py-5 my-3" style="background:#1a0f0c;">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label">Simple Process</span>
+            <h2 class="display-5 fw-bolder">How It Works</h2>
+        </div>
+        <div class="row g-4 text-center">
+            @php $steps = [
+                ['icon'=>'bi-search','color'=>'#ff6b2b','title'=>'Browse','desc'=>'Explore restaurants & menus near you'],
+                ['icon'=>'bi-cart-plus','color'=>'#ffd166','title'=>'Order','desc'=>'Add your favourite items to cart'],
+                ['icon'=>'bi-credit-card','color'=>'#4ade80','title'=>'Pay','desc'=>'Pay securely with multiple options'],
+                ['icon'=>'bi-bicycle','color'=>'#60a5fa','title'=>'Enjoy','desc'=>'Get it delivered hot to your door'],
+            ]; @endphp
+            @foreach($steps as $i => $step)
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
+                <div class="how-card p-4">
+                    <div class="how-icon mb-3" style="color:{{ $step['color'] }}; background:{{ $step['color'] }}22;">
+                        <i class="bi {{ $step['icon'] }} fs-2"></i>
+                    </div>
+                    <div class="how-step-num mb-2" style="color:{{ $step['color'] }};">Step {{ $i + 1 }}</div>
+                    <h5 class="fw-bold mb-2">{{ $step['title'] }}</h5>
+                    <p class="small mb-0" style="color:#c0aca3;">{{ $step['desc'] }}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════ CTA BANNER ══════════════ --}}
+<section class="py-5 my-5 mx-3 mx-lg-5 cta-banner rounded-5 overflow-hidden position-relative" data-aos="zoom-in">
+    <div class="cta-dots"></div>
+    <div class="container position-relative text-center py-5" style="z-index:2;">
+        <h2 class="display-4 fw-bolder text-white mb-3">Craving Something?</h2>
+        <p class="lead mb-5 fw-light" style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 2rem;">
+            Join thousands of happy customers. Get exclusive deals, lightning-fast delivery, and the best food in town.
+        </p>
+        @auth
+            <a href="{{ route('restaurants.index') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold shadow" style="color:#e63946;">
+                <i class="bi bi-shop me-2"></i>Order Now
+            </a>
+        @else
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="{{ route('register') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold shadow" style="color:#e63946;">
+                    <i class="bi bi-person-plus me-2"></i>Sign Up Free
+                </a>
+                <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold">
+                    Login
+                </a>
+            </div>
+        @endauth
+    </div>
+</section>
+
 </div>
 @endsection
 
 @push('styles')
-<!-- Include Google Fonts & AOS for Animations -->
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
-    body {
-        font-family: 'Outfit', sans-serif;
-        background-color: #16110f !important;
-        color: #fdf5f1 !important;
-    }
-    
-    /* Variables & Gradients */
-    :root {
-        --primary-gradient: linear-gradient(135deg, #ff6b2b 0%, #e63946 100%);
-        --cta-gradient: linear-gradient(45deg, #f9a03f, #f77f00);
-        --glass-bg: rgba(35, 25, 22, 0.6);
-        --glass-border: rgba(255, 255, 255, 0.05);
-    }
+/* ── Hero ── */
+.hero-section {
+    background: radial-gradient(ellipse at top right, #2a0f08 0%, #16110f 50%, #0d0806 100%);
+    padding-bottom: 0;
+}
+.hero-orbs {
+    position:absolute; inset:0; z-index:1;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(255,107,43,.18) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(230,57,70,.15) 0%, transparent 40%);
+}
+.hero-wave { line-height:0; }
+.hero-wave svg { display:block; width:100%; height:80px; }
 
-    /* Dark Mode Overrides */
-    .bg-white { background-color: #241c19 !important; }
-    .bg-light { background-color: #2e2420 !important; }
-    .text-dark { color: #fdf5f1 !important; }
-    .text-muted, .text-secondary { color: #c0aca3 !important; }
-    .border-white { border-color: rgba(255,255,255,0.1) !important; }
-    .border, .border-top { border-color: #3b2f2b !important; }
-    
-    .bg-gradient-primary { background: var(--primary-gradient); }
-    .text-gradient {
-        background: linear-gradient(to right, #ffd166, #ff9f1c);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(255, 159, 28, 0.3);
-    }
-    .text-primary { color: #ff6b2b !important; }
-    .bg-light-primary { background-color: rgba(255, 107, 43, 0.1); }
-    .btn-primary { background: var(--primary-gradient); border: none; color: #fff; }
-    .btn-primary:hover { background: linear-gradient(135deg, #e63946 0%, #d62828 100%); box-shadow: 0 10px 20px rgba(230,57,70,0.3); }
-    
-    /* Utilities */
-    .tracking-wider { letter-spacing: 0.1em; }
-    .min-vh-75 { min-height: 75vh; }
-    .z-index-1 { z-index: 1; }
-    .transition { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-    
-    /* Hero Section */
-    .hero-section {
-        background-color: #0f172a;
-        margin-top: -1.5rem; /* Offset for default nav margin if any */
-        padding-top: 2rem;
-    }
-    .hero-bg {
-        background: radial-gradient(circle at top right, rgba(99,102,241,0.3) 0%, transparent 40%),
-                    radial-gradient(circle at bottom left, rgba(168,85,247,0.3) 0%, transparent 40%);
-    }
-    .glass-card {
-        background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-    
-    /* Animations */
-    .floating-animation {
-        animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-        0% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(5deg); }
-        100% { transform: translateY(0px) rotate(0deg); }
-    }
-    
-    .floating-badge {
-        position: absolute;
-        animation: float 5s ease-in-out infinite reverse;
-    }
-    .badge-1 { top: 15%; right: 10%; }
-    .badge-2 { bottom: 20%; left: 10%; animation-delay: 1s; }
-    
-    .glass-badge {
-        background: rgba(255,255,255,0.85);
-        backdrop-filter: blur(10px);
-        border-radius: 30px;
-        padding: 8px 16px;
-        color: #1e293b;
-        font-weight: bold;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-    }
-    
-    /* Cards & Interactions */
-    .hover-lift {
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-    }
-    .hover-lift:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-    }
-    
-    .category-icon-wrapper {
-        width: 80px;
-        height: 80px;
-        transition: transform 0.3s ease;
-    }
-    .category-card:hover .category-icon-wrapper {
-        transform: scale(1.1);
-    }
-    
-    .food-card .food-img {
-        transform: scale(1);
-    }
-    .food-card:hover .food-img {
-        transform: scale(1.05);
-    }
-    
-    .add-to-cart-btn {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .food-card:hover .add-to-cart-btn {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* CTA */
-    .cta-section { background-color: #0f172a; }
-    .cta-bg {
-        background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>');
-        background-size: cover;
-    }
-    .cta-section .glass-card {
-        width: auto;
-        height: auto;
-        border-radius: 2rem !important;
-    }
+.hero-pill {
+    background: rgba(255,107,43,.15);
+    border: 1px solid rgba(255,107,43,.4);
+    color: #ff6b2b;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: .85rem;
+    font-weight: 600;
+}
+.pulse-dot {
+    width:8px; height:8px; border-radius:50%;
+    background:#4ade80;
+    animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{ box-shadow:0 0 0 0 rgba(74,222,128,.5); } 50%{ box-shadow:0 0 0 6px rgba(74,222,128,0); } }
+
+.text-flame {
+    background: linear-gradient(135deg, #ff9f1c, #ff6b2b, #e63946);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.btn-hero-primary {
+    background: linear-gradient(135deg, #ff6b2b, #e63946);
+    color: #fff; border:none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(230,57,70,.35);
+}
+.btn-hero-primary:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(230,57,70,.45); color:#fff; }
+.btn-hero-outline {
+    background: transparent;
+    color: #fdf5f1;
+    border: 1px solid rgba(255,255,255,.2);
+    transition: all 0.3s ease;
+}
+.btn-hero-outline:hover { background:rgba(255,255,255,.08); color:#fff; border-color:rgba(255,255,255,.4); }
+.btn-ghost {
+    background:rgba(255,255,255,.05);
+    color:#c0aca3; border:1px solid #3b2f2b;
+    border-radius:50px; padding:8px 20px;
+    transition:all .2s;
+}
+.btn-ghost:hover { background:#2e2420; color:#fdf5f1; }
+
+.trust-badge { display:flex; align-items:center; gap:8px; color:#c0aca3; font-size:.875rem; }
+
+.hero-visual-ring {
+    width:320px; height:320px; border-radius:50%;
+    background:rgba(255,107,43,.08);
+    border:2px solid rgba(255,107,43,.2);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 0 80px rgba(255,107,43,.15);
+}
+.floating-animation { animation:float 6s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-18px);} }
+
+.floating-pill {
+    position:absolute;
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:50px; padding:8px 16px;
+    color:#fdf5f1; font-size:.85rem; font-weight:600;
+    animation: float 5s ease-in-out infinite reverse;
+}
+.pill-1 { top:10%; right:0;  animation-delay:0s; }
+.pill-2 { bottom:15%; right:5%; animation-delay:1s; }
+.pill-3 { top:50%; left:-5%; animation-delay:2s; }
+
+/* ── Section Labels ── */
+.section-label {
+    display:inline-block; font-size:.78rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.12em;
+    color:#ff6b2b; margin-bottom:.5rem;
+}
+.section-header h2 { color:#fdf5f1; }
+
+/* ── Category Cards ── */
+.cat-card {
+    background:#241c19;
+    border:1px solid #3b2f2b;
+    border-radius:1rem;
+    transition: all .25s ease;
+    cursor:pointer;
+}
+.cat-card:hover { transform:translateY(-6px); border-color:#ff6b2b; box-shadow:0 12px 30px rgba(0,0,0,.4); }
+.cat-img-wrap { width:72px; height:72px; }
+.cat-card:hover .cat-img-wrap img { transform:scale(1.08); }
+.cat-img-wrap img { transition:transform .3s ease; }
+
+/* ── Restaurant Cards ── */
+.rest-card { background:#241c19; border:1px solid #3b2f2b; border-radius:1rem; overflow:hidden; }
+.rest-img-wrap { height:200px; }
+.rest-img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+.rest-card:hover .rest-img { transform:scale(1.06); }
+.rest-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 60%); }
+.rest-rating {
+    position:absolute; bottom:12px; left:12px;
+    background:rgba(0,0,0,.6); backdrop-filter:blur(8px);
+    border-radius:50px; padding:4px 12px;
+    font-size:.8rem; font-weight:700; color:#fdf5f1;
+}
+.rest-body { color:#fdf5f1; }
+
+/* ── Food Cards ── */
+.food-card { background:#241c19; border:1px solid #3b2f2b; border-radius:1rem; overflow:hidden; }
+.food-img-wrap { height:190px; overflow:hidden; position:relative; }
+.food-img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+.food-card:hover .food-img { transform:scale(1.07); }
+.food-add-btn {
+    position:absolute; bottom:12px; right:12px;
+    width:42px; height:42px; border-radius:50%;
+    background:linear-gradient(135deg,#ff6b2b,#e63946);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:1.1rem;
+    opacity:0; transform:translateY(10px);
+    transition:all .25s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 6px 20px rgba(230,57,70,.4);
+}
+.food-card:hover .food-add-btn { opacity:1; transform:translateY(0); }
+.food-body { color:#fdf5f1; }
+.rating-pill {
+    background:#2e2420; border:1px solid #3b2f2b;
+    border-radius:50px; padding:4px 10px; font-size:.8rem; color:#fdf5f1;
+}
+
+/* ── How it Works ── */
+.how-card { border-radius:1rem; transition:all .25s; }
+.how-card:hover { background:#2e2420; transform:translateY(-4px); }
+.how-icon { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto; }
+.how-step-num { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+
+/* ── CTA Banner ── */
+.cta-banner {
+    background: linear-gradient(135deg, #3d0e08 0%, #1a0405 50%, #200a0a 100%);
+    border:1px solid rgba(230,57,70,.3);
+    box-shadow: 0 0 80px rgba(230,57,70,.2);
+}
+.cta-dots {
+    position:absolute; inset:0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+}
+
+/* ── Hover Lift ── */
+.hover-lift { transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+.hover-lift:hover { transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,.5) !important; }
 </style>
 @endpush
 
@@ -324,11 +434,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50,
-        });
+        AOS.init({ duration: 750, once: true, offset: 40 });
     });
 </script>
 @endpush
