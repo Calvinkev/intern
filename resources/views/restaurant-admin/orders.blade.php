@@ -54,7 +54,7 @@
                                     <h6 class="mt-3 mb-2">Order Items:</h6>
                                     <ul class="list-unstyled small">
                                         @foreach($order->items as $item)
-                                            <li>{{ $item->quantity }}x {{ $item->food_name }} - ${{ number_format($item->subtotal, 2) }}</li>
+                                            <li>{{ $item->quantity }}x {{ $item->food_name }} - Shs {{ number_format($item->subtotal, 0) }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -64,20 +64,20 @@
                                             <h6 class="card-title">Order Summary</h6>
                                             <div class="d-flex justify-content-between mb-1">
                                                 <span>Subtotal</span>
-                                                <span>${{ number_format($order->subtotal, 2) }}</span>
+                                                <span>Shs {{ number_format($order->subtotal, 0) }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between mb-1">
                                                 <span>Delivery Fee</span>
-                                                <span>${{ number_format($order->delivery_fee, 2) }}</span>
+                                                <span>Shs {{ number_format($order->delivery_fee, 0) }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between mb-1">
                                                 <span>Tax</span>
-                                                <span>${{ number_format($order->tax, 2) }}</span>
+                                                <span>Shs {{ number_format($order->tax, 0) }}</span>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
                                                 <span class="fw-bold">Total</span>
-                                                <span class="fw-bold">${{ number_format($order->total, 2) }}</span>
+                                                <span class="fw-bold">Shs {{ number_format($order->total, 0) }}</span>
                                             </div>
                                         </div>
                                     </div>

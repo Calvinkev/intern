@@ -133,7 +133,7 @@
                                         <div class="small" style="color:#c0aca3;">Qty: {{ $item->quantity }}</div>
                                     </div>
                                 </div>
-                                <span class="fw-bold" style="color:#ff6b2b;">${{ number_format($item->subtotal, 2) }}</span>
+                                <span class="fw-bold" style="color:#ff6b2b;">Shs {{ number_format($item->subtotal, 0) }}</span>
                             </div>
                         @endforeach
                     </div>
@@ -159,20 +159,20 @@
 
                     <div class="d-flex justify-content-between mb-2" style="color:#c0aca3;">
                         <span>Subtotal</span>
-                        <span>${{ number_format($cart->subtotal, 2) }}</span>
+                        <span>Shs {{ number_format($cart->subtotal, 0) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2" style="color:#c0aca3;">
                         <span>Delivery Fee</span>
-                        <span>${{ number_format($cart->delivery_fee, 2) }}</span>
+                        <span>Shs {{ number_format($cart->delivery_fee, 0) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3" style="color:#c0aca3;">
                         <span>Tax (10%)</span>
-                        <span>${{ number_format($cart->tax, 2) }}</span>
+                        <span>Shs {{ number_format($cart->tax, 0) }}</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-bolder fs-5">Total</span>
-                        <span class="fw-bolder fs-4" style="color:#ff6b2b;">${{ number_format($cart->total, 2) }}</span>
+                        <span class="fw-bolder fs-4" style="color:#ff6b2b;">Shs {{ number_format($cart->total, 0) }}</span>
                     </div>
 
                     @if($cart->restaurant)

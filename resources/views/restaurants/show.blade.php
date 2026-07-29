@@ -40,8 +40,8 @@
                 @endif
             </div>
             <p class="mt-2 text-muted small">
-                <i class="bi bi-truck"></i> Delivery: ${{ number_format($restaurant->delivery_fee, 2) }} | 
-                <i class="bi bi-currency-dollar"></i> Min order: ${{ number_format($restaurant->min_order_amount, 2) }}
+                <i class="bi bi-truck"></i> Delivery: Shs {{ number_format($restaurant->delivery_fee, 0) }} | 
+                <i class="bi bi-currency-dollar"></i> Min order: Shs {{ number_format($restaurant->min_order_amount, 0) }}
             </p>
         </div>
     </div>
@@ -82,11 +82,11 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             @if($food->hasDiscount())
                                 <div>
-                                    <span class="text-decoration-line-through text-muted small">${{ number_format($food->price, 2) }}</span>
-                                    <span class="text-danger fw-bold">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                    <span class="text-decoration-line-through text-muted small">Shs {{ number_format($food->price, 0) }}</span>
+                                    <span class="text-danger fw-bold">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</span>
                                 </div>
                             @else
-                                <span class="fw-bold">${{ number_format($food->price, 2) }}</span>
+                                <span class="fw-bold">Shs {{ number_format($food->price, 0) }}</span>
                             @endif
                             <span class="badge bg-warning text-dark">
                                 <i class="bi bi-star-fill"></i> {{ number_format($food->rating, 1) }}

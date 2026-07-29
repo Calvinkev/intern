@@ -28,7 +28,7 @@
             <div class="card bg-info text-white mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Total Earnings</h5>
-                    <h2 class="display-4">${{ number_format($totalEarnings, 2) }}</h2>
+                    <h2 class="display-4">Shs {{ number_format($totalEarnings, 0) }}</h2>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                                         <p class="text-muted small mb-1">
                                             <i class="bi bi-flag"></i> {{ $delivery->delivery_address }}
                                         </p>
-                                        <p class="fw-bold mb-0">${{ number_format($delivery->delivery_fee, 2) }}</p>
+                                        <p class="fw-bold mb-0">Shs {{ number_format($delivery->delivery_fee, 0) }}</p>
                                     </div>
                                     <form action="{{ route('delivery.accept', $delivery->id) }}" method="POST">
                                         @csrf
@@ -94,7 +94,7 @@
                                         <span class="badge bg-{{ $delivery->status == 'delivered' ? 'success' : ($delivery->status == 'picked_up' ? 'warning' : 'primary') }} mb-2">
                                             {{ ucfirst($delivery->status) }}
                                         </span>
-                                        <p class="fw-bold mb-0">${{ number_format($delivery->delivery_fee, 2) }}</p>
+                                        <p class="fw-bold mb-0">Shs {{ number_format($delivery->delivery_fee, 0) }}</p>
                                     </div>
                                 </div>
                             </a>

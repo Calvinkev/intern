@@ -28,11 +28,11 @@
             
             <div class="mb-3">
                 @if($food->hasDiscount())
-                    <h3 class="text-danger">${{ number_format($food->getDiscountedPrice(), 2) }}</h3>
-                    <span class="text-decoration-line-through text-muted">${{ number_format($food->price, 2) }}</span>
+                    <h3 class="text-danger">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</h3>
+                    <span class="text-decoration-line-through text-muted">Shs {{ number_format($food->price, 0) }}</span>
                     <span class="badge bg-success ms-2">{{ round((($food->price - $food->getDiscountedPrice()) / $food->price) * 100) }}% OFF</span>
                 @else
-                    <h3>${{ number_format($food->price, 2) }}</h3>
+                    <h3>Shs {{ number_format($food->price, 0) }}</h3>
                 @endif
             </div>
 
@@ -121,9 +121,9 @@
                                 <h6 class="card-title text-dark">{{ $relatedFood->name }}</h6>
                                 <div class="d-flex justify-content-between align-items-center">
                                     @if($relatedFood->hasDiscount())
-                                        <span class="text-danger fw-bold">${{ number_format($relatedFood->getDiscountedPrice(), 2) }}</span>
+                                        <span class="text-danger fw-bold">Shs {{ number_format($relatedFood->getDiscountedPrice(), 2) }}</span>
                                     @else
-                                        <span class="fw-bold">${{ number_format($relatedFood->price, 2) }}</span>
+                                        <span class="fw-bold">Shs {{ number_format($relatedFood->price, 0) }}</span>
                                     @endif
                                     <span class="badge bg-warning text-dark">
                                         <i class="bi bi-star-fill"></i> {{ number_format($relatedFood->rating, 1) }}

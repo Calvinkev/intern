@@ -115,7 +115,7 @@
                                     <i class="bi bi-clock text-warning me-1"></i> {{ $restaurant->estimated_delivery_time }} min
                                 </span>
                                 <span class="small fw-medium" style="color:#c0aca3;">
-                                    <i class="bi bi-truck me-1" style="color:#ff6b2b;"></i> ${{ number_format($restaurant->delivery_fee, 2) }} delivery
+                                    <i class="bi bi-truck me-1" style="color:#ff6b2b;"></i> Shs {{ number_format($restaurant->delivery_fee, 0) }} delivery
                                 </span>
                             </div>
                         </div>

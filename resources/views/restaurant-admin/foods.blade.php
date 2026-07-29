@@ -42,11 +42,11 @@
                         <td>
                             @if($food->hasDiscount())
                                 <div>
-                                    <span class="text-decoration-line-through text-muted small">${{ number_format($food->price, 2) }}</span>
-                                    <span class="text-danger fw-bold">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                    <span class="text-decoration-line-through text-muted small">Shs {{ number_format($food->price, 0) }}</span>
+                                    <span class="text-danger fw-bold">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</span>
                                 </div>
                             @else
-                                ${{ number_format($food->price, 2) }}
+                                Shs {{ number_format($food->price, 0) }}
                             @endif
                         </td>
                         <td>

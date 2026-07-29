@@ -185,10 +185,10 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     @if($food->hasDiscount())
-                                        <span class="text-decoration-line-through small me-1" style="color:#c0aca3;">${{ number_format($food->price, 2) }}</span>
-                                        <span class="fw-bolder fs-5" style="color:#e63946;">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                        <span class="text-decoration-line-through small me-1" style="color:#c0aca3;">Shs {{ number_format($food->price, 0) }}</span>
+                                        <span class="fw-bolder fs-5" style="color:#e63946;">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</span>
                                     @else
-                                        <span class="fw-bolder fs-5" style="color:#fdf5f1;">${{ number_format($food->price, 2) }}</span>
+                                        <span class="fw-bolder fs-5" style="color:#fdf5f1;">Shs {{ number_format($food->price, 0) }}</span>
                                     @endif
                                 </div>
                                 <span class="rating-pill">

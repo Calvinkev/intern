@@ -72,11 +72,11 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 @if($food->hasDiscount())
                                     <div>
-                                        <span class="text-decoration-line-through text-muted small">${{ number_format($food->price, 2) }}</span>
-                                        <span class="text-danger fw-bold">${{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                        <span class="text-decoration-line-through text-muted small">Shs {{ number_format($food->price, 0) }}</span>
+                                        <span class="text-danger fw-bold">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</span>
                                     </div>
                                 @else
-                                    <span class="fw-bold">${{ number_format($food->price, 2) }}</span>
+                                    <span class="fw-bold">Shs {{ number_format($food->price, 0) }}</span>
                                 @endif
                                 <span class="badge bg-warning text-dark">
                                     <i class="bi bi-star-fill"></i> {{ number_format($food->rating, 1) }}

@@ -68,7 +68,7 @@
                                 <h6 class="mb-1">{{ $item->food_name }}</h6>
                                 <small class="text-muted">Qty: {{ $item->quantity }}</small>
                             </div>
-                            <span class="fw-bold">${{ number_format($item->subtotal, 2) }}</span>
+                            <span class="fw-bold">Shs {{ number_format($item->subtotal, 0) }}</span>
                         </li>
                         @endforeach
                     </ul>
@@ -112,26 +112,26 @@
                     
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal</span>
-                        <span>${{ number_format($order->subtotal, 2) }}</span>
+                        <span>Shs {{ number_format($order->subtotal, 0) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Delivery Fee</span>
-                        <span>${{ number_format($order->delivery_fee, 2) }}</span>
+                        <span>Shs {{ number_format($order->delivery_fee, 0) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Tax (10%)</span>
-                        <span>${{ number_format($order->tax, 2) }}</span>
+                        <span>Shs {{ number_format($order->tax, 0) }}</span>
                     </div>
                     @if($order->discount > 0)
                         <div class="d-flex justify-content-between mb-2 text-success">
                             <span>Discount</span>
-                            <span>-${{ number_format($order->discount, 2) }}</span>
+                            <span>-Shs {{ number_format($order->discount, 0) }}</span>
                         </div>
                     @endif
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-bold">Total</span>
-                        <span class="fw-bold fs-5">${{ number_format($order->total, 2) }}</span>
+                        <span class="fw-bold fs-5">Shs {{ number_format($order->total, 0) }}</span>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                         @if($order->delivery->distance)
                             <div class="mb-3">
                                 <strong>Distance:</strong>
-                                <p class="mb-0">{{ number_format($order->delivery->distance, 2) }} km</p>
+                                <p class="mb-0">{{ number_format($order->delivery->distance, 0) }} km</p>
                             </div>
                         @endif
                     </div>

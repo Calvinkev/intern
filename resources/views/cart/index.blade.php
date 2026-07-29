@@ -27,7 +27,7 @@
                                     <p class="small mb-0" style="color: #c0aca3;">{{ $item->food->restaurant->name }}</p>
                                 </div>
                                 <div class="col-md-2">
-                                    <p class="mb-0">${{ number_format($item->unit_price, 2) }}</p>
+                                    <p class="mb-0">Shs {{ number_format($item->unit_price, 0) }}</p>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="input-group input-group-sm">
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-end">
-                                    <p class="fw-bold mb-1">${{ number_format($item->subtotal, 2) }}</p>
+                                    <p class="fw-bold mb-1">Shs {{ number_format($item->subtotal, 0) }}</p>
                                     <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -71,20 +71,20 @@
                         
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
-                            <span>${{ number_format($cart->subtotal, 2) }}</span>
+                            <span>Shs {{ number_format($cart->subtotal, 0) }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Delivery Fee</span>
-                            <span>${{ number_format($cart->delivery_fee, 2) }}</span>
+                            <span>Shs {{ number_format($cart->delivery_fee, 0) }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Tax (10%)</span>
-                            <span>${{ number_format($cart->tax, 2) }}</span>
+                            <span>Shs {{ number_format($cart->tax, 0) }}</span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4">
                             <span class="fw-bold">Total</span>
-                            <span class="fw-bold fs-5">${{ number_format($cart->total, 2) }}</span>
+                            <span class="fw-bold fs-5">Shs {{ number_format($cart->total, 0) }}</span>
                         </div>
 
                         <a href="{{ route('orders.checkout') }}" class="btn btn-primary w-100 btn-lg shadow-lg" style="background: linear-gradient(135deg, #ff6b2b 0%, #e63946 100%); border: none;">

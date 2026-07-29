@@ -26,7 +26,7 @@
                                     <p class="text-muted small mb-2">
                                         <i class="bi bi-calendar"></i> {{ $order->created_at->format('M d, Y - g:i A') }}
                                     </p>
-                                    <p class="fw-bold mb-0">${{ number_format($order->total, 2) }}</p>
+                                    <p class="fw-bold mb-0">Shs {{ number_format($order->total, 0) }}</p>
                                 </div>
                                 <div class="col-md-4 text-end">
                                     <a href="{{ route('orders.show', $order->order_number) }}" class="btn btn-outline-primary">

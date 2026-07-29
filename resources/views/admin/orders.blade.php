@@ -33,7 +33,7 @@
                                 <td>{{ $order->order_number }}</td>
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ $order->restaurant->name }}</td>
-                                <td>${{ number_format($order->total, 2) }}</td>
+                                <td>Shs {{ number_format($order->total, 0) }}</td>
                                 <td>
                                     <span class="badge bg-{{ $order->status == 'delivered' ? 'success' : ($order->status == 'cancelled' ? 'danger' : 'warning') }}">
                                         {{ ucfirst($order->status) }}

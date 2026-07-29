@@ -41,7 +41,7 @@
             <div class="card bg-primary text-white mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Total Revenue</h5>
-                    <h2 class="display-4">${{ number_format($totalRevenue, 2) }}</h2>
+                    <h2 class="display-4">Shs {{ number_format($totalRevenue, 0) }}</h2>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                                     <tr>
                                         <td><a href="#">{{ $order->order_number }}</a></td>
                                         <td>{{ $order->user->name }}</td>
-                                        <td>${{ number_format($order->total, 2) }}</td>
+                                        <td>Shs {{ number_format($order->total, 0) }}</td>
                                         <td>
                                             <span class="badge bg-{{ $order->status == 'delivered' ? 'success' : ($order->status == 'cancelled' ? 'danger' : 'warning') }}">
                                                 {{ ucfirst($order->status) }}
@@ -110,7 +110,7 @@
                                     <h6 class="mb-0">{{ $food->name }}</h6>
                                     <small class="text-muted">{{ $food->order_count }} orders</small>
                                 </div>
-                                <span class="badge bg-primary rounded-pill">${{ number_format($food->price, 2) }}</span>
+                                <span class="badge bg-primary rounded-pill">Shs {{ number_format($food->price, 0) }}</span>
                             </div>
                             @endforeach
                         </div>
