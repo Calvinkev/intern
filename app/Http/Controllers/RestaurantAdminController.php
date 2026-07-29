@@ -87,12 +87,14 @@ class RestaurantAdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required_without:new_category|nullable|exists:categories,id',
+            'new_category' => 'required_without:category_id|nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'image' => 'nullable|image|max:2048',
             'is_available' => 'boolean',
+            'stock_quantity' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
             'preparation_time' => 'required|integer|min:1',
             'ingredients' => 'nullable|array',
@@ -102,16 +104,27 @@ class RestaurantAdminController extends Controller
 
         $restaurant = Auth::user()->restaurant;
         
+        $categoryId = $request->category_id;
+        if ($request->filled('new_category')) {
+            $category = Category::create([
+                'name' => $request->new_category,
+                'slug' => \Str::slug($request->new_category) . '-' . time(),
+                'is_active' => true,
+            ]);
+            $categoryId = $category->id;
+        }
+
         $food = Food::create([
             'restaurant_id' => $restaurant->id,
-            'category_id' => $request->category_id,
+            'category_id' => $categoryId,
             'name' => $request->name,
             'slug' => \Str::slug($request->name) . '-' . time(),
             'description' => $request->description,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
-            'is_available' => $request->is_available ?? true,
-            'is_featured' => $request->is_featured ?? false,
+            'is_available' => $request->has('is_available'),
+            'stock_quantity' => $request->stock_quantity,
+            'is_featured' => $request->has('is_featured'),
             'preparation_time' => $request->preparation_time,
             'ingredients' => $request->ingredients,
             'allergens' => $request->allergens,
@@ -139,12 +152,14 @@ class RestaurantAdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required_without:new_category|nullable|exists:categories,id',
+            'new_category' => 'required_without:category_id|nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'image' => 'nullable|image|max:2048',
             'is_available' => 'boolean',
+            'stock_quantity' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
             'preparation_time' => 'required|integer|min:1',
             'ingredients' => 'nullable|array',
@@ -155,15 +170,26 @@ class RestaurantAdminController extends Controller
         $restaurant = Auth::user()->restaurant;
         $food = $restaurant->foods()->findOrFail($id);
 
+        $categoryId = $request->category_id;
+        if ($request->filled('new_category')) {
+            $category = Category::create([
+                'name' => $request->new_category,
+                'slug' => \Str::slug($request->new_category) . '-' . time(),
+                'is_active' => true,
+            ]);
+            $categoryId = $category->id;
+        }
+
         $food->update([
-            'category_id' => $request->category_id,
+            'category_id' => $categoryId ?: $food->category_id,
             'name' => $request->name,
             'slug' => \Str::slug($request->name) . '-' . time(),
             'description' => $request->description,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
-            'is_available' => $request->is_available ?? true,
-            'is_featured' => $request->is_featured ?? false,
+            'is_available' => $request->has('is_available'),
+            'stock_quantity' => $request->stock_quantity,
+            'is_featured' => $request->has('is_featured'),
             'preparation_time' => $request->preparation_time,
             'ingredients' => $request->ingredients,
             'allergens' => $request->allergens,

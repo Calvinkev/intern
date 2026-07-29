@@ -22,6 +22,7 @@ class Food extends Model
         'discount_price',
         'image',
         'is_available',
+        'stock_quantity',
         'is_featured',
         'preparation_time',
         'ingredients',

@@ -20,6 +20,7 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Stock</th>
                         <th>Status</th>
                         <th>Orders</th>
                         <th>Actions</th>
@@ -43,10 +44,17 @@
                             @if($food->hasDiscount())
                                 <div>
                                     <span class="text-decoration-line-through text-muted small">Shs {{ number_format($food->price, 0) }}</span>
-                                    <span class="text-danger fw-bold">Shs {{ number_format($food->getDiscountedPrice(), 2) }}</span>
+                                    <span class="text-danger fw-bold">Shs {{ number_format($food->getDiscountedPrice(), 0) }}</span>
                                 </div>
                             @else
                                 Shs {{ number_format($food->price, 0) }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($food->stock_quantity !== null)
+                                {{ $food->stock_quantity }}
+                            @else
+                                <span class="text-muted">Unlimited</span>
                             @endif
                         </td>
                         <td>

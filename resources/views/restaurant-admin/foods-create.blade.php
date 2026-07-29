@@ -25,14 +25,25 @@
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="category_id" class="form-label">Category *</label>
-                            <select class="form-select" id="category_id" name="category_id" required>
-                                <option value="">Select a category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="category_id" class="form-label">Category *</label>
+                                    <select class="form-select" id="category_id" name="category_id">
+                                        <option value="">Select a category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="new_category" class="form-label">Or Add New Category</label>
+                                    <input type="text" class="form-control" id="new_category" name="new_category" placeholder="e.g. Desserts">
+                                    <small class="text-muted">Fill this if category is not in list</small>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="mb-3">
@@ -82,11 +93,21 @@
                             </div>
                         </div>
                         
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="is_available" name="is_available" checked>
-                            <label class="form-check-label" for="is_available">
-                                Available for ordering
-                            </label>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="is_available" name="is_available" checked>
+                                    <label class="form-check-label" for="is_available">
+                                        Available for ordering
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <label for="stock_quantity" class="form-label">Stock Quantity (Optional)</label>
+                                    <input type="number" class="form-control" id="stock_quantity" name="stock_quantity" min="0" placeholder="e.g. 50">
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-check mb-3">
