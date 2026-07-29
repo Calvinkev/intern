@@ -13,6 +13,16 @@
 
     <div class="row">
         <div class="col-lg-8">
+            @if($errors->any())
+                <div class="alert alert-danger mb-4">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <form action="{{ route('restaurant.admin.foods.update', $food->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
