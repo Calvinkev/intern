@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home - CodeBase Food Ordering')
+@section('title', 'Home - CODEBASE FOODS')
 
 @section('content')
 <!-- Stitch-like Aesthetics: vibrant gradients, glassmorphism, floating animations, modern typography -->

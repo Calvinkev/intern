@@ -1,0 +1,76 @@
+PROJECT ARCHITECTURE & DEVELOPER GUIDE
+======================================
+Project Name: CodeBase Food Ordering (Internship Project)
+Framework: Laravel (PHP)
+Frontend: Blade Templates, Tailwind CSS, Bootstrap 5, Vite, AlpineJS
+
+1. HIGH-LEVEL OVERVIEW
+----------------------
+This project is a comprehensive multi-vendor food ordering and delivery platform. The system connects hungry customers, restaurant vendors, delivery personnel, and platform administrators. It is built strictly following the MVC (Model-View-Controller) design pattern utilizing the Laravel framework. 
+
+The frontend uses a hybrid of Bootstrap 5 for structural components and Tailwind CSS for utility-driven, highly customizable UI. The platform recently underwent a design overhaul, adopting a premium, dark "appetizing" aesthetic that leverages deep blacks/browns with vibrant orange and red accents.
+
+2. DATABASE ARCHITECTURE (MODELS)
+---------------------------------
+The Eloquent ORM handles database interactions. The schema revolves around these core entities (found in `app/Models/`):
+
+- **User**: The central authentication model. Handles roles (Customer, Restaurant Admin, Delivery Driver, System Admin).
+- **Restaurant**: Represents vendors on the platform. Contains relationships to Foods, Orders, and Reviews.
+- **Category**: Classifies foods (e.g., Fast Food, Healthy, Drinks) for easy discovery.
+- **Food & FoodImage**: The menu items available for order. Tied to a specific Category and Restaurant.
+- **Cart & CartItem**: Persists user cart sessions in the database before checkout.
+- **Order & OrderItem**: Created during checkout. Tracks total cost, status (pending, preparing, out_for_delivery, delivered), and the specific items bought.
+- **Payment**: Records transactions linked to specific orders.
+- **Delivery**: Handles the dispatching side. Links an Order to a specific Delivery Driver (User) and tracks transit status.
+- **Review**: Allows users to rate and comment on foods and restaurants post-delivery.
+- **Notification**: Manages platform alerts for users (e.g., "Your order is on the way!").
+- **ActivityLog**: An audit trail of important actions across the platform for administrative monitoring.
+- **Setting**: Global platform variables and configurations accessible by System Admins.
+
+3. APPLICATION FLOW (CONTROLLERS)
+---------------------------------
+The application logic is broken down by domain (found in `app/Http/Controllers/`):
+
+- **Public Facing**:
+  - `HomeController.php`: Serves the landing page, popular items, and featured restaurants.
+  - `FoodController.php` & `RestaurantController.php`: Manages the public-facing directory and detail pages for vendors and menus.
+
+- **Customer Flow**:
+  - `CartController.php`: Handles adding items, adjusting quantities, and validating cart contents against restaurant rules (e.g., preventing items from different restaurants in one cart).
+  - `OrderController.php`: Manages the checkout flow, payment processing integration, and order history tracking.
+  - `ProfileController.php`: Manages user account details and addresses.
+
+- **Vendor / Driver Flow**:
+  - `RestaurantAdminController.php`: The dashboard for restaurant owners to add/edit menu items, view incoming orders, and update order statuses (e.g., "Preparing").
+  - `DeliveryController.php`: The interface for delivery drivers to see available tasks, accept deliveries, and update delivery states.
+
+- **Admin Flow**:
+  - `SystemAdminController.php`: The master control panel to moderate users, oversee all orders, manage platform fees, and configure system settings.
+
+4. FRONTEND ARCHITECTURE
+------------------------
+- **Blade Components (`resources/views`)**: Uses Laravel Blade for templating. The primary layout wrapper is `layouts.app` and `layouts.navigation`. 
+- **Styling**: The platform relies heavily on Tailwind CSS for modern design paradigms (Glassmorphism, gradients, hover-lifts). A custom `<style>` block in `home.blade.php` defines CSS variables for the dark theme (`--primary-gradient`, `--bg-color`).
+- **Asset Compilation**: Managed by Vite (`vite.config.js`). CSS and JS entry points are located in `resources/css/app.css` and `resources/js/app.js`.
+
+5. HOW TO RUN THE PROJECT LOCALLY
+---------------------------------
+If you are onboarding to this project, follow these steps to get the environment running:
+
+1. Clone the repository and navigate to the root directory.
+2. Run `composer install` to install PHP dependencies.
+3. Run `npm install` to install Javascript dependencies (Tailwind, Vite, etc).
+4. Copy `.env.example` to `.env` and configure your local database credentials.
+5. Run `php artisan key:generate` to generate the application key.
+6. Run `php artisan migrate --seed` to generate the database schema and populate it with dummy data (users, restaurants, foods) from the Seeders.
+7. Start the Laravel backend server: `php artisan serve` (Defaults to http://127.0.0.1:8000).
+8. In a new terminal tab, start the Vite frontend server: `npm run dev` (Required for Tailwind compilation and hot-module reloading).
+
+6. DESIGN PHILOSOPHY & CONTRIBUTION GUIDELINES
+----------------------------------------------
+- **Adding Features**: Create migrations and controllers via artisan (`php artisan make:model X -mc`). Keep business logic in controllers or extract to service classes if they grow too large.
+- **Styling Conventions**: Stick to the dark appetizing theme. Avoid stark whites (`#ffffff`). Prefer deep charcoal/brown backgrounds with warm off-white text (`#fdf5f1`). Use the defined CSS variables for primary and CTA gradients.
+- **Git Workflow**: Commit features atomically (one functionality per commit). Ensure you do not commit directly to `main` without reviewing.
+
+---
+Document generated by Backend Team (Internship Program)
