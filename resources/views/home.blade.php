@@ -87,7 +87,19 @@
                             @if($cat->image)
                                 <img src="{{ asset('storage/' . $cat->image) }}" class="rounded-circle w-100 h-100 object-fit-cover" alt="{{ $cat->name }}">
                             @else
-                                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop" class="rounded-circle w-100 h-100 object-fit-cover" alt="{{ $cat->name }}">
+                                @php
+                                    $catImgs = [
+                                        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1476224203421-9ac39bcb3df1?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=200&h=200&fit=crop',
+                                        'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200&h=200&fit=crop',
+                                    ];
+                                @endphp
+                                <img src="{{ $catImgs[$loop->index % count($catImgs)] }}" class="rounded-circle w-100 h-100 object-fit-cover" alt="{{ $cat->name }}">
                             @endif
                         </div>
                         <span class="fw-bold small" style="color:#fdf5f1;">{{ $cat->name }}</span>
@@ -120,7 +132,17 @@
                             @if($r->cover_image)
                                 <img src="{{ asset('storage/' . $r->cover_image) }}" class="rest-img" alt="{{ $r->name }}">
                             @else
-                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=400&fit=crop" class="rest-img" alt="{{ $r->name }}">
+                                @php
+                                    $restImgs = [
+                                        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=800&h=400&fit=crop',
+                                    ];
+                                @endphp
+                                <img src="{{ $restImgs[$loop->index % count($restImgs)] }}" class="rest-img" alt="{{ $r->name }}">
                             @endif
                             <div class="rest-overlay"></div>
                             <span class="rest-rating">
@@ -171,7 +193,19 @@
                             @if($food->image)
                                 <img src="{{ asset('storage/' . $food->image) }}" class="food-img" alt="{{ $food->name }}">
                             @else
-                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" class="food-img" alt="{{ $food->name }}">
+                                @php
+                                    $foodImgs = [
+                                        'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1519984388953-d2406bc725e1?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop',
+                                        'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=300&fit=crop',
+                                    ];
+                                @endphp
+                                <img src="{{ $foodImgs[$loop->index % count($foodImgs)] }}" class="food-img" alt="{{ $food->name }}">
                             @endif
                             <div class="food-add-btn">
                                 <i class="bi bi-plus-lg"></i>

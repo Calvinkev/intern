@@ -70,10 +70,22 @@
                                     style="transition: transform 0.4s ease;"
                                     alt="{{ $restaurant->name }}">
                             @else
-                                <div class="w-100 h-100 d-flex align-items-center justify-content-center"
-                                    style="background: linear-gradient(135deg, #2e2420, #1a1412);">
-                                    <i class="bi bi-shop" style="font-size:4rem; color:#3b2f2b;"></i>
-                                </div>
+                                @php
+                                    $restFallbacks = [
+                                        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=800&h=400&fit=crop',
+                                        'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&h=400&fit=crop',
+                                    ];
+                                @endphp
+                                <img src="{{ $restFallbacks[$loop->index % count($restFallbacks)] }}"
+                                    class="w-100 h-100 object-fit-cover"
+                                    style="transition: transform 0.4s ease;"
+                                    alt="{{ $restaurant->name }}">
                             @endif
                             {{-- Badges overlay --}}
                             <div class="position-absolute top-0 start-0 p-3 d-flex gap-2 flex-wrap">
