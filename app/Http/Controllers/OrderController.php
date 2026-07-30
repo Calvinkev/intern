@@ -9,6 +9,7 @@ use App\Models\CartItem;
 use App\Models\Payment;
 use App\Models\Delivery;
 use App\Models\Notification;
+use App\Services\Payment\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,29 @@ class OrderController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty!');
         }
 
+        // Check if restaurant is open
+        if (!$cart->restaurant->isOpen()) {
+            return redirect()->route('cart.index')->with('error', 'This restaurant is currently closed.');
+        }
+
+        // Check minimum order amount
+        if ($cart->subtotal < $cart->restaurant->min_order_amount) {
+            return redirect()->route('cart.index')->with('error', "Minimum order amount is {$cart->restaurant->min_order_amount}. Current subtotal is {$cart->subtotal}.");
+        }
+
+        // Re-validate stock and availability for all cart items
+        foreach ($cart->items as $cartItem) {
+            $food = $cartItem->food;
+            
+            if (!$food->is_available) {
+                return redirect()->route('cart.index')->with('error', "{$food->name} is currently unavailable. Please remove it from your cart.");
+            }
+
+            if ($food->stock_quantity !== null && $food->stock_quantity < $cartItem->quantity) {
+                return redirect()->route('cart.index')->with('error', "Only {$food->stock_quantity} {$food->name} available in stock. Please adjust your quantity.");
+            }
+        }
+
         DB::transaction(function () use ($request, $cart) {
             $order = Order::create([
                 'user_id' => Auth::id(),
@@ -82,15 +106,54 @@ class OrderController extends Controller
                 ]);
 
                 $cartItem->food->increment('order_count', $cartItem->quantity);
+                
+                // Decrement stock quantity if set
+                if ($cartItem->food->stock_quantity !== null) {
+                    $cartItem->food->decrement('stock_quantity', $cartItem->quantity);
+                }
             }
 
-            Payment::create([
+            $payment = Payment::create([
                 'order_id' => $order->id,
                 'user_id' => Auth::id(),
                 'payment_method' => $request->payment_method,
                 'status' => 'pending',
                 'amount' => $order->total,
             ]);
+
+            // Process payment for cash_on_delivery and mobile money synchronously
+            if (in_array($request->payment_method, ['cash_on_delivery', 'mtn_mobile_money', 'airtel_money'])) {
+                $paymentService = new PaymentService();
+                $paymentData = [
+                    'order_id' => $order->id,
+                    'amount' => $order->total,
+                    'phone' => $request->delivery_phone,
+                    'user_id' => Auth::id(),
+                ];
+
+                try {
+                    $result = $paymentService->processPayment($request->payment_method, $paymentData);
+                    
+                    $payment->update([
+                        'status' => $result['success'] ? 'completed' : 'failed',
+                        'transaction_id' => $result['transaction_id'] ?? null,
+                        'payment_reference' => $result['reference'] ?? null,
+                        'payment_details' => $result['details'] ?? [],
+                        'paid_at' => $result['success'] ? now() : null,
+                        'failure_reason' => $result['success'] ? null : ($result['error'] ?? 'Payment processing failed'),
+                    ]);
+
+                    if (!$result['success']) {
+                        throw new \Exception('Payment failed: ' . ($result['error'] ?? 'Unknown error'));
+                    }
+                } catch (\Exception $e) {
+                    $payment->update([
+                        'status' => 'failed',
+                        'failure_reason' => $e->getMessage(),
+                    ]);
+                    throw $e;
+                }
+            }
 
             Delivery::create([
                 'order_id' => $order->id,

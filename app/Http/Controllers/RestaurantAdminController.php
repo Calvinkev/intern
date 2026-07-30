@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Food;
 use App\Models\Category;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,11 +51,28 @@ class RestaurantAdminController extends Controller
     public function updateOrderStatus(Request $request, $orderId)
     {
         $request->validate([
-            'status' => 'required|in:confirmed,preparing,ready,picked_up,rejected',
+            'status' => 'required|in:confirmed,preparing,ready,rejected',
         ]);
 
         $restaurant = Auth::user()->restaurant;
         $order = $restaurant->orders()->findOrFail($orderId);
+
+        // Define valid status transitions
+        $validTransitions = [
+            'pending' => ['confirmed', 'rejected'],
+            'confirmed' => ['preparing', 'rejected'],
+            'preparing' => ['ready', 'rejected'],
+            'ready' => ['rejected'],
+            'rejected' => [],
+        ];
+
+        $currentStatus = $order->status;
+        $newStatus = $request->status;
+
+        // Check if the transition is valid
+        if (!in_array($newStatus, $validTransitions[$currentStatus] ?? [])) {
+            return redirect()->back()->with('error', "Cannot change order status from '{$currentStatus}' to '{$newStatus}'.");
+        }
 
         $order->update([
             'status' => $request->status,
@@ -62,6 +80,39 @@ class RestaurantAdminController extends Controller
             'preparing_at' => $request->status == 'preparing' ? now() : $order->preparing_at,
             'ready_at' => $request->status == 'ready' ? now() : $order->ready_at,
         ]);
+
+        // Notify customer of status change
+        $statusMessages = [
+            'confirmed' => 'Your order has been confirmed and is being prepared.',
+            'preparing' => 'Your order is now being prepared.',
+            'ready' => 'Your order is ready and waiting for delivery pickup.',
+            'rejected' => 'Your order has been rejected by the restaurant.',
+        ];
+
+        if (isset($statusMessages[$request->status])) {
+            Notification::create([
+                'user_id' => $order->user_id,
+                'title' => "Order Status Updated: {$request->status}",
+                'message' => $statusMessages[$request->status],
+                'type' => 'order',
+                'order_id' => $order->id,
+            ]);
+        }
+
+        // Handle rejected orders with proper cleanup
+        if ($request->status == 'rejected') {
+            $order->update([
+                'cancellation_reason' => 'Rejected by restaurant',
+                'cancelled_at' => now(),
+            ]);
+
+            // Restore stock quantities
+            foreach ($order->items as $orderItem) {
+                if ($orderItem->food->stock_quantity !== null) {
+                    $orderItem->food->increment('stock_quantity', $orderItem->quantity);
+                }
+            }
+        }
 
         return redirect()->back()->with('success', 'Order status updated successfully!');
     }

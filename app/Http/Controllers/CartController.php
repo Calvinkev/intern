@@ -29,6 +29,23 @@ class CartController extends Controller
         ]);
 
         $food = Food::findOrFail($request->food_id);
+        
+        // Check if food is available
+        if (!$food->is_available) {
+            return redirect()->back()->with('error', 'This item is currently unavailable.');
+        }
+
+        // Check stock quantity if set
+        if ($food->stock_quantity !== null && $food->stock_quantity < $request->quantity) {
+            return redirect()->back()->with('error', "Only {$food->stock_quantity} items available in stock.");
+        }
+
+        // Check if restaurant is open
+        $restaurant = $food->restaurant;
+        if (!$restaurant->isOpen()) {
+            return redirect()->back()->with('error', 'This restaurant is currently closed.');
+        }
+
         $cart = Auth::user()->cart;
 
         if (!$cart) {

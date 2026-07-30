@@ -88,7 +88,8 @@ class Order extends Model
     protected static function booted()
     {
         static::creating(function ($order) {
-            $order->order_number = 'ORD-' . str_pad(static::max('id') + 1, 8, '0', STR_PAD_LEFT);
+            // Generate unique order number using date + random string to avoid race conditions
+            $order->order_number = 'ORD-' . date('Ymd') . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 6));
         });
     }
 

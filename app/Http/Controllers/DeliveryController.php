@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,17 +38,18 @@ class DeliveryController extends Controller
 
     public function acceptDelivery($id)
     {
-        $delivery = Delivery::findOrFail($id);
+        // Use atomic update with where clause to prevent race condition
+        $affected = Delivery::where('id', $id)
+            ->where('status', 'pending')
+            ->update([
+                'delivery_personnel_id' => Auth::id(),
+                'status' => 'accepted',
+                'accepted_at' => now(),
+            ]);
 
-        if ($delivery->status !== 'pending') {
+        if ($affected === 0) {
             return redirect()->back()->with('error', 'This delivery is no longer available.');
         }
-
-        $delivery->update([
-            'delivery_personnel_id' => Auth::id(),
-            'status' => 'accepted',
-            'accepted_at' => now(),
-        ]);
 
         return redirect()->route('delivery.dashboard')->with('success', 'Delivery accepted successfully!');
     }
@@ -68,10 +70,34 @@ class DeliveryController extends Controller
             'delivered_at' => $request->status == 'delivered' ? now() : $delivery->delivered_at,
         ]);
 
-        if ($request->status == 'delivered') {
+        // Sync order status with delivery status
+        if ($request->status == 'picked_up') {
+            $delivery->order->update([
+                'status' => 'out_for_delivery',
+                'picked_up_at' => now(),
+            ]);
+
+            // Notify customer that order is out for delivery
+            Notification::create([
+                'user_id' => $delivery->order->user_id,
+                'title' => 'Order Out for Delivery',
+                'message' => 'Your order has been picked up and is on its way!',
+                'type' => 'order',
+                'order_id' => $delivery->order->id,
+            ]);
+        } elseif ($request->status == 'delivered') {
             $delivery->order->update([
                 'status' => 'delivered',
                 'delivered_at' => now(),
+            ]);
+
+            // Notify customer that order has been delivered
+            Notification::create([
+                'user_id' => $delivery->order->user_id,
+                'title' => 'Order Delivered',
+                'message' => 'Your order has been delivered successfully!',
+                'type' => 'order',
+                'order_id' => $delivery->order->id,
             ]);
         }
 
