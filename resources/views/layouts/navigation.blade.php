@@ -88,9 +88,20 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                <i class="bi bi-house me-2"></i> Home
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('restaurants.index')" :active="request()->routeIs('restaurants.*')">
+                <i class="bi bi-shop me-2"></i> Restaurants
+            </x-responsive-nav-link>
+            @auth
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                    <i class="bi bi-receipt me-2"></i> My Orders
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')">
+                    <i class="bi bi-cart me-2"></i> Cart
+                </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

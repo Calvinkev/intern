@@ -55,6 +55,8 @@ class CartController extends Controller
             ]);
         }
 
+        $cart->calculateTotals();
+
         return redirect()->back()->with('success', 'Item added to cart!');
     }
 
@@ -68,6 +70,7 @@ class CartController extends Controller
         $this->authorize('update', $cartItem);
 
         $cartItem->update(['quantity' => $request->quantity]);
+        $cartItem->cart->calculateTotals();
 
         return redirect()->back()->with('success', 'Cart updated!');
     }
@@ -77,7 +80,9 @@ class CartController extends Controller
         $cartItem = CartItem::findOrFail($id);
         $this->authorize('delete', $cartItem);
 
+        $cart = $cartItem->cart;
         $cartItem->delete();
+        $cart->calculateTotals();
 
         return redirect()->back()->with('success', 'Item removed from cart!');
     }
