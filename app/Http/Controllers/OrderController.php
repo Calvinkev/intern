@@ -56,9 +56,12 @@ class OrderController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty!');
         }
 
-        // Check if restaurant is open
-        if (!$cart->restaurant->isOpen()) {
-            return redirect()->route('cart.index')->with('error', 'This restaurant is currently closed.');
+        // Check if restaurant is accepting orders
+        if (!$cart->restaurant->isAcceptingOrders()) {
+            $message = $cart->restaurant->is_busy 
+                ? 'This restaurant is currently busy. Please try again later.' 
+                : 'This restaurant is currently closed.';
+            return redirect()->route('cart.index')->with('error', $message);
         }
 
         // Check minimum order amount

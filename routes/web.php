@@ -50,6 +50,8 @@ Route::middleware(['auth', 'restaurant.admin'])->prefix('restaurant-admin')->nam
     Route::delete('/foods/{id}', [RestaurantAdminController::class, 'deleteFood'])->name('foods.delete');
     Route::get('/profile', [RestaurantAdminController::class, 'profile'])->name('profile');
     Route::put('/profile', [RestaurantAdminController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/busy-mode', [RestaurantAdminController::class, 'setBusyMode'])->name('busy-mode');
+    Route::post('/clear-busy-mode', [RestaurantAdminController::class, 'clearBusyMode'])->name('clear-busy-mode');
 });
 
 // Delivery Personnel routes

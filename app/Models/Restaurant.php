@@ -31,6 +31,9 @@ class Restaurant extends Model
         'is_featured',
         'rating',
         'total_reviews',
+        'is_busy',
+        'busy_until',
+        'busy_reason',
     ];
 
     protected $casts = [
@@ -40,6 +43,8 @@ class Restaurant extends Model
         'min_order_amount' => 'decimal:2',
         'rating' => 'decimal:2',
         'is_featured' => 'boolean',
+        'is_busy' => 'boolean',
+        'busy_until' => 'datetime',
         'opening_time' => 'datetime:H:i:s',
         'closing_time' => 'datetime:H:i:s',
     ];
@@ -95,5 +100,68 @@ class Restaurant extends Model
         }
 
         return $now->between($opening, $closing);
+    }
+
+    public function isAcceptingOrders(): bool
+    {
+        // Check if restaurant is active
+        if ($this->status !== 'active') {
+            return false;
+        }
+
+        // Check if restaurant is open by schedule
+        if (!$this->isOpen()) {
+            return false;
+        }
+
+        // Check if restaurant is in busy mode
+        if ($this->is_busy) {
+            // Auto-clear busy mode if time has passed
+            if ($this->busy_until && now()->gt($this->busy_until)) {
+                $this->update([
+                    'is_busy' => false,
+                    'busy_until' => null,
+                    'busy_reason' => null,
+                ]);
+                return true;
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    public function setBusyMode(int $minutes, string $reason = null): void
+    {
+        $this->update([
+            'is_busy' => true,
+            'busy_until' => now()->addMinutes($minutes),
+            'busy_reason' => $reason,
+        ]);
+    }
+
+    public function clearBusyMode(): void
+    {
+        $this->update([
+            'is_busy' => false,
+            'busy_until' => null,
+            'busy_reason' => null,
+        ]);
+    }
+
+    public function scopeBusy($query)
+    {
+        return $query->where('is_busy', true);
+    }
+
+    public function scopeNotBusy($query)
+    {
+        return $query->where(function ($q) {
+            $q->where('is_busy', false)
+              ->orWhere(function ($subQuery) {
+                  $subQuery->where('is_busy', true)
+                           ->where('busy_until', '<', now());
+              });
+        });
     }
 }

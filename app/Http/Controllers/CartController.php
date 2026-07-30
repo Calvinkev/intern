@@ -40,10 +40,13 @@ class CartController extends Controller
             return redirect()->back()->with('error', "Only {$food->stock_quantity} items available in stock.");
         }
 
-        // Check if restaurant is open
+        // Check if restaurant is accepting orders
         $restaurant = $food->restaurant;
-        if (!$restaurant->isOpen()) {
-            return redirect()->back()->with('error', 'This restaurant is currently closed.');
+        if (!$restaurant->isAcceptingOrders()) {
+            $message = $restaurant->is_busy 
+                ? 'This restaurant is currently busy. Please try again later.' 
+                : 'This restaurant is currently closed.';
+            return redirect()->back()->with('error', $message);
         }
 
         $cart = Auth::user()->cart;

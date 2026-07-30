@@ -316,4 +316,25 @@ class RestaurantAdminController extends Controller
 
         return redirect()->route('restaurant.admin.profile')->with('success', 'Restaurant profile updated successfully!');
     }
+
+    public function setBusyMode(Request $request)
+    {
+        $request->validate([
+            'minutes' => 'required|integer|min:5|max:480',
+            'reason' => 'nullable|string|max:255',
+        ]);
+
+        $restaurant = Auth::user()->restaurant;
+        $restaurant->setBusyMode($request->minutes, $request->reason);
+
+        return redirect()->back()->with('success', "Restaurant set to busy mode for {$request->minutes} minutes.");
+    }
+
+    public function clearBusyMode()
+    {
+        $restaurant = Auth::user()->restaurant;
+        $restaurant->clearBusyMode();
+
+        return redirect()->back()->with('success', 'Restaurant is now accepting orders.');
+    }
 }
